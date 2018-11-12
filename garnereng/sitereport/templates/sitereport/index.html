@@ -1,0 +1,23 @@
+{% extends "sitereport/base.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block body %}
+    <h1>Home</h1>
+    <table>
+        <tr>
+            <th>Project Name</th>
+            <th> - </th>
+            <th>Client</th>
+        </tr>
+    {% for project in projects %}
+        <tr>
+            <td>{{ project.name }}</td>
+            <td> - </td>
+            <td>{{ project.client }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock %}
