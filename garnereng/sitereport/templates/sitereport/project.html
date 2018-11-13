@@ -6,6 +6,10 @@
 
 {% block body %}
     <h1>{{ project.name }}</h1>
-    <p>{{ project.client }}</p>
+    <p>{{ client }}</p>
+    <p>{{ client.address }}</p>
+    <p>Decision maker: {{ client.decider }}</p>
+    <p>Email: <a href="mailto:{{ client.decider.email }}">
+        {{ client.decider.email }}</a></p>
     <p><a href="{% url 'index' %}">Go back to summary</a></p>
 {% endblock %}

@@ -29,7 +29,8 @@ def project(request, project_id):
         raise Http404("Project does not exist.")
 
     context = {
-        'project': project
+        'project': project,
+        'client': project.client
     }
 
     return render(request, "sitereport/project.html", context) 
