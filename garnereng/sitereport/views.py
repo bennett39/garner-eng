@@ -6,7 +6,7 @@ from .models import Project, Client, Site
 # Create your views here.
 def index(request):
     context = {
-        'projects': Project.objects.all()
+            'projects': Project.objects.all()
     }
     return render(request, "sitereport/index.html", context)
 
@@ -17,7 +17,7 @@ def client(request, client_id):
         raise Http404("Client does not exist.")
 
     context = {
-        'client' : client
+            'client' : client
     }
 
     return render(request, "sitereport/client.html", context) 
@@ -29,9 +29,22 @@ def project(request, project_id):
         raise Http404("Project does not exist.")
 
     context = {
-        'project': project,
-        'client': project.client,
-        'sites': project.sites.all()
+            'project': project,
+            'client': project.client,
+            'sites': project.sites.all()
     }
 
     return render(request, "sitereport/project.html", context) 
+
+def site(request, site_id):
+    try:
+        site = Site.objects.get(pk=site_id)
+    except Site.DoesNotExist:
+        raise Http404("Site does not exist.")
+
+    context = {
+            'site': site
+    }
+
+    return render(request, "sitereport/site.html", context)
+
