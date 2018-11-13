@@ -14,7 +14,7 @@
     <ul>
         {% if sites %}
             {% for site in sites %}
-            <li>{{ site }}</li>
+            <li><a href="{% url 'site' site.id %}">{{ site }}</a></li>
             {% endfor %}
         {% else %}
             <li>No sites yet</li>

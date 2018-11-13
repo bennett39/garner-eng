@@ -6,4 +6,17 @@
 
 {% block body %}
     <h1>{{ site }}</h1>
+        <p>Project: {{ site.project }}</p>
+    {% if site.date_start %}
+        <p>Date Started: {{ site.date_start }}</p>
+    {% endif %}
+    {% if site.date_end %}
+        <p>Date Ended: {{ site.date_end }}</p>
+    {% endif %}
+
+    <h2>Location</h2>
+        <p>{{ site.street }}</p>
+        <p>{{ site.city }}, {{ site.state }}</p>
+        <p>{{ site.zip_code }}</p>
+
 {% endblock %}
