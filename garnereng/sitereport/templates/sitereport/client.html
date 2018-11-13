@@ -5,5 +5,11 @@
 {% endblock %}
 
 {% block body %}
-    <p>{{ client }}</p>
+    <h1>{{ client.name }}</h1>
+    <ul>
+        <li>{{ client.address }}</li>
+        <li>{{ client.city }}</li>
+        <li>{{ client.state }} </li>
+        <li>{{ client.zip_code }}</li>
+    </ul>
 {% endblock %}

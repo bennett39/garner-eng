@@ -14,9 +14,13 @@
         </tr>
     {% for project in projects %}
         <tr>
-            <td>{{ project.name }}</td>
+            <td>
+                <a href="{% url 'project' project.id %}">{{ project.name }}<a>
+            </td>
             <td> - </td>
-            <td>{{ project.client }}</td>
+            <td>
+                <a href="{% url 'client' project.client.id %}">{{ project.client }}</a>
+            </td>
         </tr>
     {% endfor %}
     </table>

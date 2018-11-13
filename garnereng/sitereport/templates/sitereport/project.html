@@ -1,0 +1,11 @@
+{% extends "sitereport/base.html" %}
+
+{% block title %}
+    Project: {{ project.name }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ project.name }}</h1>
+    <p>{{ project.client }}</p>
+    <p><a href="{% url 'index' %}">Go back to summary</a></p>
+{% endblock %}

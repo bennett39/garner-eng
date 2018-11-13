@@ -23,4 +23,13 @@ def client(request, client_id):
     return render(request, "sitereport/client.html", context) 
 
 def project(request, project_id):
-    return HttpResponse("Project index")
+    try:
+        project = Project.objects.get(pk=project_id)
+    except Project.DoesNotExist:
+        raise Http404("Project does not exist.")
+
+    context = {
+        'project': project
+    }
+
+    return render(request, "sitereport/project.html", context) 
