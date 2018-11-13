@@ -24,7 +24,7 @@ class Client(models.Model):
     address = models.CharField(max_length=254, null=True, blank=True)
     city = models.CharField(max_length=64, null=True, blank=True)
     state = models.ForeignKey(UsState, on_delete=models.CASCADE,
-            null=True, blank=True)
+            null=True, blank=True, related_name='state_clients')
     zip_code = models.CharField(max_length=10, null=True, blank=True)
     decider = models.ForeignKey(Person, on_delete=models.CASCADE, 
             null=True, blank=True, related_name='decision_maker')
@@ -37,7 +37,8 @@ class Client(models.Model):
 
 class Project(models.Model):
     name = models.CharField('project name', max_length=254)
-    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE,
+            related_name='projects')
 
     def __str__(self):
         return self.name
@@ -45,10 +46,11 @@ class Project(models.Model):
 class Site(models.Model):
     name = models.CharField(max_length=127, null=True, blank=True)
     project = models.ForeignKey(Project, on_delete=models.CASCADE,
-            default=None)
+            default=None, related_name='sites')
     street = models.CharField(max_length=254)
     city = models.CharField(max_length=64)
-    state = models.ForeignKey(UsState, on_delete=models.CASCADE)
+    state = models.ForeignKey(UsState, on_delete=models.CASCADE,
+            related_name='state_sites')
     zip_code = models.CharField(max_length=10)
     date_start = models.DateField('date started', default=None,
             null=True, blank=True)

@@ -8,8 +8,17 @@
     <h1>{{ project.name }}</h1>
     <p>{{ client }}</p>
     <p>{{ client.address }}</p>
-    <p>Decision maker: {{ client.decider }}</p>
-    <p>Email: <a href="mailto:{{ client.decider.email }}">
-        {{ client.decider.email }}</a></p>
+    <p>Decision maker: {{ client.decider }} - <a href="mailto:{{ client.decider.email }}">
+        {{ client.decider.email }}</a> - {{ client.decider.phone }}</p>
+    <h2>Sites for this project</h2>
+    <ul>
+        {% if sites %}
+            {% for site in sites %}
+            <li>{{ site }}</li>
+            {% endfor %}
+        {% else %}
+            <li>No sites yet</li>
+        {% endif %}
+    </ul>
     <p><a href="{% url 'index' %}">Go back to summary</a></p>
 {% endblock %}

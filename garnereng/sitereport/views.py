@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
 
-from .models import Project, Client
+from .models import Project, Client, Site
 
 # Create your views here.
 def index(request):
@@ -30,7 +30,8 @@ def project(request, project_id):
 
     context = {
         'project': project,
-        'client': project.client
+        'client': project.client,
+        'sites': project.sites.all()
     }
 
     return render(request, "sitereport/project.html", context) 
