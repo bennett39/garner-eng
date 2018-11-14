@@ -6,8 +6,7 @@
 
 {% block body %}
     <h1>{{ project.name }}</h1>
-        <p>{{ client }}</p>
-        <p>{{ client.address }}</p>
+    <p><a href="{% url 'client' client.id %}">{{ client }}</a></p>
         <p>Decision maker: {{ client.decider }} - <a href="mailto:{{ client.decider.email }}">
             {{ client.decider.email }}</a> - {{ client.decider.phone }}</p>
     <h2>Sites for this project</h2>
