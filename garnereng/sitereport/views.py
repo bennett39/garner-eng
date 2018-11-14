@@ -17,7 +17,8 @@ def client(request, client_id):
         raise Http404("Client does not exist.")
 
     context = {
-            'client' : client
+            'client' : client,
+            'projects': client.projects.all()
     }
 
     return render(request, "sitereport/client.html", context) 

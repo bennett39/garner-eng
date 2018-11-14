@@ -6,11 +6,27 @@
 
 {% block body %}
     <h1>{{ client.name }}</h1>
-    <ul>
-        <li>{{ client.address }}</li>
-        <li>{{ client.city }}</li>
-        <li>{{ client.state }} </li>
-        <li>{{ client.zip_code }}</li>
-    </ul>
-    <p><a href="{% url 'index' %}">Back to summary listing</a></p>
+        <p>Decision maker: {{ client.decider }} - 
+            <a href="mailto:{{ client.decider.email }}">
+            {{ client.decider.email }}</a> - {{ client.decider.phone }}
+        </p>
+        <p>Project lead: {{ client.lead }} - 
+            <a href="mailto:{{ client.lead.email }}">
+                {{ client.lead.email }}</a> - {{ client.lead.phone}}
+        </p>
+        
+    <h2>Mailing Address</h2>
+        <p>{{ client.address }}</p>
+        <p>{{ client.city }}, {{ client.state }}</p>
+        <p>{{ client.zip_code }}</p>
+
+    <h2>Projects</h2>
+        <ul>
+            {% for project in projects %}
+            <li><a href="{% url 'project' project.id %}">
+                    {{ project }}</a></li>
+            {% endfor %}
+        </ul>
+
+        <p><a href="{% url 'index' %}">Back to summary listing</a></p>
 {% endblock %}

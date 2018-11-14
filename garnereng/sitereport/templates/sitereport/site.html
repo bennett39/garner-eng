@@ -6,7 +6,8 @@
 
 {% block body %}
     <h1>{{ site }}</h1>
-        <p>Project: {{ site.project }}</p>
+    <p>Project: <a href="{% url 'project' site.project.id %}">
+        {{ site.project }}</a></p>
     {% if site.date_start %}
         <p>Date Started: {{ site.date_start }}</p>
     {% endif %}
