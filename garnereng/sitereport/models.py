@@ -1,4 +1,6 @@
 from django.db import models
+import time
+from datetime import date
 
 # Create your models here.
 class UsState(models.Model):
@@ -79,6 +81,13 @@ class SpillwayType(models.Model):
         return self.label
 
 
+class TestType(models.Model):
+    label = models.CharField(max_length=64)
+
+    def __str__(self):
+        return self.label
+
+
 class Project(models.Model):
     name = models.CharField('project name', max_length=254)
     client = models.ForeignKey(Client, on_delete=models.CASCADE,
@@ -111,6 +120,7 @@ class Project(models.Model):
     def __str__(self):
         return self.name
 
+
 class Site(models.Model):
     name = models.CharField(max_length=127, null=True, blank=True)
     project = models.ForeignKey(Project, on_delete=models.CASCADE,
@@ -127,3 +137,24 @@ class Site(models.Model):
 
     def __str__(self):
         return f"{self.name}"
+
+
+class Report(models.Model):
+    date = models.DateField(null=True, default=None)
+    site = models.ForeignKey(Site, on_delete=models.CASCADE, 
+            related_name='site_reports')
+    mileage = models.FloatField(null=True, blank=True)
+    travel_time = models.FloatField(null=True, blank=True)
+    site_time = models.FloatField(null=True, blank=True)
+    temperature = models.IntegerField(null=True, blank=True)
+    weather = models.CharField(max_length=64)
+    conditions = models.CharField('site conditions', max_length=128)
+    description = models.TextField('work description', null=True, 
+            blank=True)
+    tests = models.ManyToManyField(TestType, blank=True)
+    photos = models.TextField('Drive/Dropbox link to photos', null=True,
+            blank=True)
+
+    def __str__(self):
+        return self.date.strftime("%Y-%m-%d")
+
