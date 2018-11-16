@@ -19,5 +19,7 @@ from django.urls import include, path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('sitereport/', include('sitereport.urls')),
+    # Change the below path to remove sitereport as the default app when
+    # visiting the site
+    path('', include('sitereport.urls')),
 ]

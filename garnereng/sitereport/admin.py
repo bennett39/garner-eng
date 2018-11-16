@@ -1,3 +1,8 @@
+"""
+Register models with Django admin. More info:
+https://docs.djangoproject.com/en/2.1/ref/contrib/admin
+"""
+
 from django.contrib import admin
 
 from .models import (UsState, Client, Person, Project, Site, Contractor,

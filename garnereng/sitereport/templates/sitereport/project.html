@@ -6,18 +6,53 @@
 
 {% block body %}
     <h1>{{ project.name }}</h1>
-    <p><a href="{% url 'client' client.id %}">{{ client }}</a></p>
-        <p>Decision maker: {{ client.decider }} - <a href="mailto:{{ client.decider.email }}">
-            {{ client.decider.email }}</a> - {{ client.decider.phone }}</p>
+        <!--Add clickable client name, links to client.html and passes
+            along the client id-->
+        <p>Client: <a href="{% url 'client' client.id %}">{{ client }}</a></p>
+        
+        <!--Add project decision maker info, if exists.
+            If None or null, don't display-->
+        {% if client.decider %}
+        <p>Decision maker: {{ client.decider }}
+        {% if client.decider.email %}
+            - <a href="mailto:{{ client.decider.email }}">
+            {{ client.decider.email }}</a>
+        {% endif %}
+        {% if client.decider.phone %}
+             - {{ client.decider.phone }}
+        {% endif %}
+        </p>
+        {% endif %}
+
+        <!--Add project lead info, if exists -->
+        {% if client.lead %}
+        <p>Decision maker: {{ client.lead }}
+        {% if client.lead.email %}
+            - <a href="mailto:{{ client.lead.email }}">
+            {{ client.lead.email }}</a>
+        {% endif %}
+        {% if client.lead.phone %}
+             - {{ client.lead.phone }}
+        {% endif %}
+        </p>
+        {% endif %}
+
     <h2>Sites for this project</h2>
         <ul>
+            <!--Show project sites, if they exist-->
             {% if sites %}
                 {% for site in sites %}
                 <li><a href="{% url 'site' site.id %}">{{ site }}</a></li>
                 {% endfor %}
+
+            <!--If no sites exist (sites = None or null) in database 
+                for this project, show default text-->
             {% else %}
                 <li>No sites yet</li>
             {% endif %}
         </ul>
+
+    <!--Return user to index of sitereport, currently (11/16/18) the
+        home page of the entire garnereng site -->
     <p><a href="{% url 'index' %}">Go back to summary</a></p>
 {% endblock %}

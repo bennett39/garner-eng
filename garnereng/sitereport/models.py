@@ -4,6 +4,10 @@ from datetime import date
 
 # Create your models here.
 class UsState(models.Model):
+    """
+    Create a table for US States so that Clients, Contractors, and 
+    Projects are searchable by state.
+    """
     state = models.CharField(max_length=64)
     symbol = models.CharField(max_length=2)
 
@@ -12,6 +16,10 @@ class UsState(models.Model):
 
 
 class Person(models.Model):
+    """
+    Create a table of individual Persons that can be affiliated with
+    Projects, Clients, and Contractors.
+    """
     first = models.CharField(max_length=128)
     last = models.CharField(max_length=128)
     email = models.EmailField(max_length=254, null=True, blank=True)
@@ -22,6 +30,10 @@ class Person(models.Model):
 
 
 class Client(models.Model):
+    """
+    Create a table of Clients (companies) that are associated with 
+    Projects
+    """
     name = models.CharField('company/client name', max_length=254)
     address = models.CharField(max_length=254, null=True, blank=True)
     city = models.CharField(max_length=64, null=True, blank=True)
@@ -40,6 +52,9 @@ class Client(models.Model):
 
 
 class Contractor(models.Model):
+    """
+    Create a table of Contractors that are associated with Projects.
+    """
     name = models.CharField('company/client name', max_length=254)
     address = models.CharField(max_length=254, null=True, blank=True)
     city = models.CharField(max_length=64, null=True, blank=True)
@@ -54,6 +69,10 @@ class Contractor(models.Model):
 
 
 class Phase(models.Model):
+    """
+    Create a table of Project Phases (e.g. "Design", "Proposal", or
+    "Construction"). Projects searchable/sortable by Phase.
+    """
     label = models.CharField(max_length=64)
 
     def __str__(self):
@@ -61,6 +80,10 @@ class Phase(models.Model):
 
 
 class Status(models.Model):
+    """
+    Create a table of current Project Statuses (e.g. "Active",
+    "Standby", or "Complete"). Projects searchable/sortable by Status.
+    """
     label = models.CharField(max_length=64)
 
     def __str__(self):
@@ -68,6 +91,12 @@ class Status(models.Model):
 
 
 class DamType(models.Model):
+    """
+    Create a table of Project DamTypes (e.g. "Earth/Embankment",
+    "Gravity", "Arch"). Searchable/sortable by DamType.
+    
+    If Project.is_dam == False, then DamType should be None.
+    """
     label = models.CharField(max_length=64)
 
     def __str__(self):
@@ -75,6 +104,12 @@ class DamType(models.Model):
 
 
 class SpillwayType(models.Model):
+    """
+    Create a table of SpillwayTypes (e.g. "Riser", "Overflow",
+    "Labrynth"). Searchable/sortable by SpillwayType.
+
+    If Project.is_dam == False, then SpillwayType should be None.
+    """
     label = models.CharField(max_length=64)
 
     def __str__(self):
@@ -82,6 +117,11 @@ class SpillwayType(models.Model):
 
 
 class TestType(models.Model):
+    """
+    Crate a table of TestTypes performed on a field visit to a Site
+    (e.g. "Structural Steel", "Concrete", "Proofroll"). Reports
+    searchable/sortable by TestType.
+    """
     label = models.CharField(max_length=64)
 
     def __str__(self):
@@ -89,6 +129,24 @@ class TestType(models.Model):
 
 
 class Project(models.Model):
+    """
+    Create a table of Projects. Projects is the core model of this app.
+
+    Related models:
+        - Client
+        - Contractor
+        - Phase
+        - Status
+        - DamType
+        - SpillwayType
+        - Site (via 'sites' related_name)
+    
+    TODO: Add logic to the is_dam boolean field that sets remaining
+    fields to None/Null when is_dam==False. 
+    
+    For now, leave fields empty when is_dam==False
+    """
+
     name = models.CharField('project name', max_length=254)
     client = models.ForeignKey(Client, on_delete=models.CASCADE,
             related_name='projects')
@@ -122,6 +180,10 @@ class Project(models.Model):
 
 
 class Site(models.Model):
+    """
+    Create a table of construction Sites affiliated with a given
+    Project.
+    """
     name = models.CharField(max_length=127, null=True, blank=True)
     project = models.ForeignKey(Project, on_delete=models.CASCADE,
             default=None, related_name='sites')
@@ -140,6 +202,10 @@ class Site(models.Model):
 
 
 class Report(models.Model):
+    """
+    Create a table of daily field Reports affiliated with a given Site 
+    (Sites are further affiliated with a given Project).
+    """
     date = models.DateField(null=True, default=None)
     site = models.ForeignKey(Site, on_delete=models.CASCADE, 
             related_name='site_reports')
