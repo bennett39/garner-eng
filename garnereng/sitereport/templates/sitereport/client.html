@@ -6,27 +6,48 @@
 
 {% block body %}
     <h1>{{ client.name }}</h1>
-        <p>Decision maker: {{ client.decider }} - 
-            <a href="mailto:{{ client.decider.email }}">
-            {{ client.decider.email }}</a> - {{ client.decider.phone }}
+        {% if client.decider %}
+        <p>Decision maker: {{ client.decider }} 
+            {% if client.decider.email %}
+            - <a href="mailto:{{ client.decider.email }}">
+            {{ client.decider.email }}</a> 
+            {% endif %}
+            {% if client.decider.phone %}
+            - {{ client.decider.phone }}
+            {% endif %}
         </p>
-        <p>Project lead: {{ client.lead }} - 
-            <a href="mailto:{{ client.lead.email }}">
-                {{ client.lead.email }}</a> - {{ client.lead.phone}}
+        {% endif %}
+
+        {% if client.lead %}
+        <p>Project lead: {{ client.lead }} 
+            {% if client.lead.email %}
+            - <a href="mailto:{{ client.lead.email }}">
+                {{ client.lead.email }}</a> 
+            {% endif %}
+            {% if client.lead.phone %}
+            - {{ client.lead.phone}}
+            {% endif %}
         </p>
+        {% endif %}
         
+    {% if client.address %}
     <h2>Mailing Address</h2>
         <p>{{ client.address }}</p>
         <p>{{ client.city }}, {{ client.state }}</p>
         <p>{{ client.zip_code }}</p>
+    {% endif %}
 
     <h2>Projects</h2>
         <ul>
-            {% for project in projects %}
-            <li><a href="{% url 'project' project.id %}">
-                    {{ project }}</a></li>
-            {% endfor %}
+            {% if projects %}
+                {% for project in projects %}
+                <li><a href="{% url 'project' project.id %}">
+                        {{ project }}</a></li>
+                {% endfor %}
+            {% else %}
+            <li>No projects yet.</li>
+            {% endif %}
         </ul>
 
-        <p><a href="{% url 'index' %}">Back to summary listing</a></p>
+    <p><a href="{% url 'index' %}">Back to summary listing</a></p>
 {% endblock %}

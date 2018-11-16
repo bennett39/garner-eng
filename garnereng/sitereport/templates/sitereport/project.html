@@ -8,12 +8,14 @@
     <h1>{{ project.name }}</h1>
         <!--Add clickable client name, links to client.html and passes
             along the client id-->
-        <p>Client: <a href="{% url 'client' client.id %}">{{ client }}</a></p>
+        <p>Client: 
+            <a href="{% url 'client' client.id %}">{{ client }}</a>
+        </p>
         
         <!--Add project decision maker info, if exists.
             If None or null, don't display-->
         {% if client.decider %}
-        <p>Decision maker: {{ client.decider }}
+        <p>Decision Maker: {{ client.decider }}
         {% if client.decider.email %}
             - <a href="mailto:{{ client.decider.email }}">
             {{ client.decider.email }}</a>
@@ -26,7 +28,7 @@
 
         <!--Add project lead info, if exists -->
         {% if client.lead %}
-        <p>Decision maker: {{ client.lead }}
+        <p>Project Lead: {{ client.lead }}
         {% if client.lead.email %}
             - <a href="mailto:{{ client.lead.email }}">
             {{ client.lead.email }}</a>

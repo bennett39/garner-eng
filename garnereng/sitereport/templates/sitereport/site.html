@@ -16,8 +16,14 @@
     {% endif %}
 
     <h2>Location</h2>
-        <p>{{ site.street }}</p>
-        <p>{{ site.city }}, {{ site.state }}</p>
-        <p>{{ site.zip_code }}</p>
+        {% if site.street %}
+            <p>{{ site.street }}</p>
+        {% endif %}
+        {% if site.city or site.state %}
+            <p>{{ site.city }}, {{ site.state }}</p>
+        {% endif %}
+        {% if site.zip_code %}
+            <p>{{ site.zip_code }}</p>
+        {% endif %}
 
 {% endblock %}
