@@ -1,0 +1,32 @@
+{% extends 'sitereport/base.html' %}
+
+{% block title %}
+    {{ report.site }}: {{ report }} 
+{% endblock %}
+
+{% block body %}
+    <h1 class="display-4">{{ report.site }}: {{ report }}</h1>
+    <div class="card">
+        <h4 class="card-header">Details</h4>
+        <div class="card-body">
+            <table class="table">
+                <tr>
+                    <th>Project:</th>
+                    <td>{{ report.site.project }}</td>
+                </tr>
+                <tr>
+                    <th>Site:</th>
+                    <td>{{ report.site }}</td>
+                </tr>
+                <tr>
+                    <th>Client:</th>
+                    <td>{{ report.site.client }}</td>
+                </tr>
+                <tr>
+                    <th>Contractor:</th>
+                    <td>{{ report.site.contractor }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+{% endblock %}

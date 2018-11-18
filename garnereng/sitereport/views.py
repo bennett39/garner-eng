@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
 
-from .models import Project, Client, Site
+from .models import Project, Client, Site, Report
 
 # Create your views here.
 def index(request):
@@ -76,6 +76,23 @@ def projects(request):
     }
 
     return render(request, "sitereport/projects.html", context)
+
+
+def report(request, report_id):
+    """
+    Lookup a report via the report_id and display it
+    """
+    try:
+        report = Report.objects.get(pk=report_id)
+    except Report.DoesNotExist:
+        raise Http404("Report does not exist.")
+
+    context = {
+            'report': report,
+    }
+
+    return render(request, "sitereport/report.html", context)
+
 
 def site(request, site_id):
     try:
