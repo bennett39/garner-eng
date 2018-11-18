@@ -6,10 +6,46 @@
 
 {% block body %}
     <h1>{{ client.name }}</h1>
-
-    <h2>People</h2>
+ 
+    <div class="card">
+        <h4 class="card-header">Projects</h4>
+        <div class="card-body">
         <table class="table">
-            <thead>
+            <thead class="thead-light">
+                <tr>
+                    <th>Number</th>
+                    <th>Name</th>
+                    <th>Phase</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            {% if projects %}
+                {% for project in projects %}
+                <tr>
+                    <th>{{ project.number }}</th>
+                    <td><a href="{% url 'project' project.id%}">
+                            {{ project.name }}</a></td>
+                    <td>{{ project.phase }}</td>
+                    <td>{{ project.status }}</td>
+                </tr>
+                {% endfor %}
+            {% else %}
+            <tr>
+                <td>No projects yet.</td>
+            </tr>
+            {% endif %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <h4 class="card-header">People</h2>
+        <div class="card-body">
+        <table class="table">
+            <thead class="thead-light">
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Email</th>
@@ -31,25 +67,15 @@
                 {% endfor %}
             </tbody>
         </table>
+        </div>
+    </div>
     
-        {% if client.address %}
-        <h2>Mailing Address</h2>
-            <p>{{ client.address }}</p>
-            <p>{{ client.city }}, {{ client.state }}</p>
-            <p>{{ client.zip_code }}</p>
-        {% endif %}
-
-    <h2>Projects</h2>
-        <ul>
-            {% if projects %}
-                {% for project in projects %}
-                <li><a href="{% url 'project' project.id %}">
-                        {{ project }}</a></li>
-                {% endfor %}
-            {% else %}
-            <li>No projects yet.</li>
-            {% endif %}
-        </ul>
-
-    <p><a href="{% url 'index' %}">Back to summary listing</a></p>
+    <div class="card">
+        <h4 class="card-header">Mailing Address</h4>
+        <div class="card-body">
+            {{ client.address }}<br />
+            {{ client.city }}, {{ client.state }}<br />
+            {{ client.zip_code }}<br/>
+        </div>
+    </div>
 {% endblock %}

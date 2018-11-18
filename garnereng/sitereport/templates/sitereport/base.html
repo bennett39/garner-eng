@@ -29,6 +29,10 @@ integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEUL
     <body>
         <div class='container'>
         {% block body %}{% endblock %}
+        
+        <p><a href="{% url 'index' %}">Back to summary listing</a></p>
+
+        
         </div>
     </body>
 </html>
