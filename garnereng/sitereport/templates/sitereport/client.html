@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-    <h1>{{ client.name }}</h1>
+    <h1 class="display-4">{{ client.name }}</h1>
  
     <div class="card">
         <h4 class="card-header">Projects</h4>
@@ -17,6 +17,8 @@
                     <th>Name</th>
                     <th>Phase</th>
                     <th>Status</th>
+                    <th>Project Lead</th>
+                    <th>Decision Maker</th>
                 </tr>
             </thead>
 
@@ -29,11 +31,18 @@
                             {{ project.name }}</a></td>
                     <td>{{ project.phase }}</td>
                     <td>{{ project.status }}</td>
+                    <td>{{ project.lead }}</td>
+                    <td>{{ project.decider }}</td>
                 </tr>
                 {% endfor %}
             {% else %}
             <tr>
+                <th></th>
                 <td>No projects yet.</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
             </tr>
             {% endif %}
             </tbody>
@@ -59,7 +68,8 @@
                 <tr>
                     <td>{{ person.first }}</td>
                     <td>{{ person.last }}</td>
-                    <td>{{ person.email }}</td>
+                    <td><a href="mailto:{{ person.email }}">
+                        {{ person.email }}</a></td>
                     <td>{{ person.phone }}</td>
                     <td>{{ person.title }}</td>
                     <td>{{ person.role }}</td>
@@ -71,7 +81,7 @@
     </div>
     
     <div class="card">
-        <h4 class="card-header">Mailing Address</h4>
+        <h4 class="card-header">Location</h4>
         <div class="card-body">
             {{ client.address }}<br />
             {{ client.city }}, {{ client.state }}<br />

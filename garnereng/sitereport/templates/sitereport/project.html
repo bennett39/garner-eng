@@ -5,56 +5,73 @@
 {% endblock %}
 
 {% block body %}
-    <h1>{{ project.name }}</h1>
-        <!--Add clickable client name, links to client.html and passes
-            along the client id-->
-        <p>Client: 
-            <a href="{% url 'client' client.id %}">{{ client }}</a>
-        </p>
-        
-        <!--Add project decision maker info, if exists.
-            If None or null, don't display-->
-        {% if client.decider %}
-        <p>Decision Maker: {{ client.decider }}
-        {% if client.decider.email %}
-            - <a href="mailto:{{ client.decider.email }}">
-            {{ client.decider.email }}</a>
-        {% endif %}
-        {% if client.decider.phone %}
-             - {{ client.decider.phone }}
-        {% endif %}
-        </p>
-        {% endif %}
+    <h1 class="display-4">{{ project.name }}</h1>
+    <div class="card">
+        <h4 class="card-header">Client</h4>
+        <div class="card-body">
+            <table class="table">
+                <thead class="thead-light">
+                <tr>
+                    <th>Client Name</th>
+                    <th>Project Lead</th>
+                    <th>Lead Email</th>
+                    <th>Lead Phone</th>
+                    <th>Decision Maker</th>
+                    <th>Decider Email</th>
+                    <th>Decider Phone</th>
+                </tr>
+                </thead>
 
-        <!--Add project lead info, if exists -->
-        {% if client.lead %}
-        <p>Project Lead: {{ client.lead }}
-        {% if client.lead.email %}
-            - <a href="mailto:{{ client.lead.email }}">
-            {{ client.lead.email }}</a>
-        {% endif %}
-        {% if client.lead.phone %}
-             - {{ client.lead.phone }}
-        {% endif %}
-        </p>
-        {% endif %}
+                <tbody>
+                    <tr>
+                        <td><a href="{% url 'client' client.id %}">
+                                {{ client }}</a></td>
+                        <td>{{ project.lead }}</td>
+                        <td>{{ project.lead.email }}</td>
+                        <td>{{ project.lead.phone }}</td>
+                        <td>{{ project.decider }}</td>
+                        <td>{{ project.decider.email }}</td>
+                        <td>{{ project.decider.phone }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div> 
 
-    <h2>Sites for this project</h2>
-        <ul>
-            <!--Show project sites, if they exist-->
-            {% if sites %}
+    <div class="card">
+    <h4 class="card-header">Sites for this project</h4>
+    <div class="card-body">
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th>Name</th>
+                    <th>Location</th>
+                    <th>Started</th>
+                    <th>Ended</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% if sites %}
                 {% for site in sites %}
-                <li><a href="{% url 'site' site.id %}">{{ site }}</a></li>
+                    <tr>
+                        <th><a href="{% url 'site' site.id %}">
+                                {{ site.name }}</a></th>
+                        <td>{{ site.street }}, {{ site.city }}, {{ site.state }}</td>
+                        <td>{{ site.date_start }}</td>
+                        <td>{{ site.date_end }}</td>
+                    </tr>
                 {% endfor %}
-
-            <!--If no sites exist (sites = None or null) in database 
-                for this project, show default text-->
-            {% else %}
-                <li>No sites yet</li>
-            {% endif %}
-        </ul>
-
-    <!--Return user to index of sitereport, currently (11/16/18) the
-        home page of the entire garnereng site -->
-    <p><a href="{% url 'index' %}">Go back to summary</a></p>
+                {% else %}
+                    <tr>
+                        <td></td>
+                        <td>No sites yet</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+        </div>
+    </div>
 {% endblock %}

@@ -54,10 +54,6 @@ class Client(models.Model):
     state = models.ForeignKey(UsState, on_delete=models.CASCADE,
             null=True, blank=True, related_name='state_clients')
     zip_code = models.CharField(max_length=10, null=True, blank=True)
-    decider = models.ForeignKey(Person, on_delete=models.CASCADE, 
-            null=True, blank=True, related_name='decision_maker')
-    lead = models.ForeignKey(Person, on_delete=models.CASCADE,
-            null=True, blank=True, related_name='project_lead')
     people = models.ManyToManyField(Person, blank=True,
             related_name='client_people')
     referral = models.CharField('referral source', max_length=254, 
@@ -170,6 +166,10 @@ class Project(models.Model):
             related_name='projects')
     number = models.CharField('job number', max_length=16, unique=True,
             blank=True, null=True)
+    decider = models.ForeignKey(Person, on_delete=models.CASCADE, 
+            null=True, blank=True, related_name='decision_maker')
+    lead = models.ForeignKey(Person, on_delete=models.CASCADE,
+            null=True, blank=True, related_name='project_lead')
     started = models.DateField(null=True, blank=True)
     budget = models.FloatField(null=True, blank=True)
     billed = models.FloatField(null=True, blank=True)

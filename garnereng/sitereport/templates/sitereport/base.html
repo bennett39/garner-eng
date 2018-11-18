@@ -25,14 +25,42 @@ integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEUL
                 crossorigin="anonymous"></script>
 
         <title>{% block title %}{% endblock %}</title>
-   </head>
+    </head>
     <body>
-        <div class='container'>
-        {% block body %}{% endblock %}
-        
-        <p><a href="{% url 'index' %}">Back to summary listing</a></p>
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="/">Garner Engineering</a>
+                <button class="navbar-toggler" type="button" 
+                    data-toggle="collapse" data-target="#navbarNav" 
+                    aria-controls="navbarNav" aria-expanded="false" 
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span> 
+                </button> 
+                <!--
+                <div class="collapse navbar-collapse" id="navbarNav"> 
+                    <ul class="navbar-nav"> 
+                        <li class="nav-item"> 
+                            <a class="nav-link" href="#">Projects</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Clients</a> 
+                        </li>
+                    </ul> 
+                </div> 
+                -->
+            </nav>
 
-        
+            <div class="container">
+            {% block body %}{% endblock %}
+            
+                <p><a href="{% url 'index' %}">
+                    Back to summary listing</a></p>
+            </div>
+
+            <div class="container" id="footer">
+                <hr>
+                <p><small>&copy; Garner Engineering - Contents of this page are
+                    confidential</small></p>
         </div>
     </body>
 </html>

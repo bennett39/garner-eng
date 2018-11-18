@@ -64,7 +64,8 @@ def site(request, site_id):
         raise Http404("Site does not exist.")
 
     context = {
-            'site': site
+            'site': site,
+            'reports': site.site_reports.all()
     }
 
     return render(request, "sitereport/site.html", context)

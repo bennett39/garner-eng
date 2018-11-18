@@ -1,29 +1,75 @@
 {% extends "sitereport/base.html" %}
 
 {% block title %}
-    Site: {{ site }}
+    {{site.project }}: {{ site }}
 {% endblock %}
 
 {% block body %}
-    <h1>{{ site }}</h1>
-    <p>Project: <a href="{% url 'project' site.project.id %}">
-        {{ site.project }}</a></p>
-    {% if site.date_start %}
-        <p>Date Started: {{ site.date_start }}</p>
-    {% endif %}
-    {% if site.date_end %}
-        <p>Date Ended: {{ site.date_end }}</p>
-    {% endif %}
+    <h1 class="display-4">{{ site.project }}: {{ site }}</h1>
 
-    <h2>Location</h2>
-        {% if site.street %}
-            <p>{{ site.street }}</p>
-        {% endif %}
-        {% if site.city or site.state %}
-            <p>{{ site.city }}, {{ site.state }}</p>
-        {% endif %}
-        {% if site.zip_code %}
-            <p>{{ site.zip_code }}</p>
-        {% endif %}
+        <div class="card">
+            <h4 class="card-header">Details</h4>
+            <div class="card-body">
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Project</th>
+                            <th>Client</th>
+                            <th>Contractor</th>
+                            <th>Location</th>
+                            <th>Started</th>
+                            <th>Ended</th>
+                        </tr>
+                    </thead>
 
+                    <tbody>
+                        <tr>
+                            <td><a href="{% url 'project' site.project.id %}">
+                                {{ site.project }}</a></td>
+                            <td><a href="{% url 'client' site.project.client.id %}">
+                                {{ site.project.client }}</a></td>
+                            <td>{{ site.project.contractor }}</td>
+                            <td>{{ site.street }}, {{ site.city }},
+                                {{ site.state }}</td>
+                            <td>{{ site.date_start }}</td>
+                            <td>{{ site.date_end }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <h4 class="card-header">Reports</h4>
+            <div class="card-body">
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Date</th>
+                            <th>Weather</th>
+                            <th>Conditions</th>
+                            <th>Tests Performed</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        {% for report in reports %}
+                        <tr>
+                            <td>{{ report.date }}</td>
+                            <td><span class="badge badge-light">
+                                    {{ report.weather }}</span></td>
+                            <td><span class="badge badge-light">
+                                    {{ report.conditions }}</span></td>
+                            <td>
+                                {% for test in report.tests.all %}
+                                <span class="badge badge-primary">{{ test }}
+                                    </span> 
+                                {% endfor %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
 {% endblock %}
