@@ -28,7 +28,8 @@ def client(request, client_id):
 
     context = {
             'client' : client,
-            'projects': client.projects.all()
+            'projects': client.projects.all(),
+            'people': client.people.all()
     }
 
     return render(request, "sitereport/client.html", context) 
