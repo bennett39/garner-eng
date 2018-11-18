@@ -9,7 +9,7 @@ def index(request):
     Lists Projects alongside their respective Clients
     """
     context = {
-            'projects': Project.objects.all()
+        'projects': Project.objects.all()
     }
     return render(request, "sitereport/index.html", context)
 
@@ -34,6 +34,18 @@ def client(request, client_id):
 
     return render(request, "sitereport/client.html", context) 
 
+
+def clients(request):
+    """
+    Displays all clients.
+    """
+    context = {
+            'clients': Client.objects.all().order_by('name')
+    }
+
+    return render(request, "sitereport/clients.html", context)
+
+
 def project(request, project_id):
     """
     Displays Project information based on a passed-in project_id
@@ -53,6 +65,17 @@ def project(request, project_id):
     }
 
     return render(request, "sitereport/project.html", context) 
+
+
+def projects(request):
+    """
+    List all projects.
+    """
+    context = {
+        'projects': Project.objects.all().order_by('name')
+    }
+
+    return render(request, "sitereport/projects.html", context)
 
 def site(request, site_id):
     try:

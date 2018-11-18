@@ -1,0 +1,21 @@
+{% extends "sitereport/base.html" %}
+
+{% block title %}
+    Projects Overview
+{% endblock %}
+
+{% block body %}
+    <h1>Projects</h1>
+
+    <div class="card">
+        <h4 class="card-header">Alphabetical</h4>
+        <div class="card-body">
+            <ul>
+                {% for project in projects %}
+                <li><a href="{% url 'project' project.id %}">
+                        {{ project }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

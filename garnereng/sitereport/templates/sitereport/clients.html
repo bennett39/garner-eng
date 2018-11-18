@@ -1,0 +1,21 @@
+{% extends "sitereport/base.html" %}
+
+{% block title %}
+    Clients Overview
+{% endblock %}
+
+{% block body %}
+    <h1>Clients</h1>
+
+    <div class="card">
+        <h4 class="card-header">Alphabetical</h4>
+        <div class="card-body">
+            <ul>
+                {% for client in clients %}
+                <li><a href="{% url 'client' client.id %}">
+                        {{ client }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
