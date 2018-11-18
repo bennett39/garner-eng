@@ -6,22 +6,27 @@
 
 {% block body %}
     <h1>Home</h1>
-    <table>
+    <table class="table">
+        <thead class="thead-light">
         <tr>
-            <th>Project Name</th>
-            <th> - </th>
-            <th>Client</th>
+            <th scope="column">Job Number</th>
+            <th scope="column">Project Name</th>
+            <th scope="column">Client</th>
         </tr>
+        </thead>
+        
     {% for project in projects %}
+        <tbody>
         <tr>
+            <th scope="row">{{ project.number }}</th>
             <td>
                 <a href="{% url 'project' project.id %}">{{ project.name }}<a>
             </td>
-            <td> - </td>
             <td>
                 <a href="{% url 'client' project.client.id %}">{{ project.client }}</a>
             </td>
         </tr>
+        </tbody>
     {% endfor %}
     </table>
 {% endblock %}

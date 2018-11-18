@@ -6,36 +6,56 @@
 
 {% block body %}
     <h1>{{ client.name }}</h1>
-        {% if client.decider %}
-        <p>Decision maker: {{ client.decider }} 
-            {% if client.decider.email %}
-            - <a href="mailto:{{ client.decider.email }}">
-            {{ client.decider.email }}</a> 
-            {% endif %}
-            {% if client.decider.phone %}
-            - {{ client.decider.phone }}
-            {% endif %}
-        </p>
-        {% endif %}
+    <div class="row">
+    <div class="col-8">
+        <table class="table">
+            <thead>
+                <th></th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+            </thead>
 
-        {% if client.lead %}
-        <p>Project lead: {{ client.lead }} 
-            {% if client.lead.email %}
-            - <a href="mailto:{{ client.lead.email }}">
-                {{ client.lead.email }}</a> 
+            <tbody>
+            {% if client.decider %}
+                <tr>
+                    <th>Decision maker:</th>
+                    <td>{{ client.decider }}</td>
+                    {% if client.decider.email %}
+                    <td><a href="mailto:{{ client.decider.email }}">
+                            {{ client.decider.email }}</a></td>
+                    {% endif %}
+                    {% if client.decider.phone %}
+                    <td>{{ client.decider.phone }}</td>
+                    {% endif %}
+                </tr>
+                {% endif %}
+
+                {% if client.lead %}
+                <tr>
+                    <th>Project lead:</th>
+                    <td>{{ client.lead }}</td>
+                    {% if client.lead.email %}
+                    <td><a href="mailto:{{ client.lead.email }}">
+                            {{ client.lead.email }}</a></td>
+                    {% endif %}
+                    {% if client.lead.phone %}
+                    <td>{{ client.lead.phone}}</td>
+                    {% endif %}
+                </tr>
             {% endif %}
-            {% if client.lead.phone %}
-            - {{ client.lead.phone}}
-            {% endif %}
-        </p>
+            </tbody>
+        </table>
+    </div>
+    <div class="col"></div>
+    </div>
+    
+        {% if client.address %}
+        <h2>Mailing Address</h2>
+            <p>{{ client.address }}</p>
+            <p>{{ client.city }}, {{ client.state }}</p>
+            <p>{{ client.zip_code }}</p>
         {% endif %}
-        
-    {% if client.address %}
-    <h2>Mailing Address</h2>
-        <p>{{ client.address }}</p>
-        <p>{{ client.city }}, {{ client.state }}</p>
-        <p>{{ client.zip_code }}</p>
-    {% endif %}
 
     <h2>Projects</h2>
         <ul>

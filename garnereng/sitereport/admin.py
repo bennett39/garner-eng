@@ -6,7 +6,7 @@ https://docs.djangoproject.com/en/2.1/ref/contrib/admin
 from django.contrib import admin
 
 from .models import (UsState, Client, Person, Project, Site, Contractor,
-Status, Phase, DamType, SpillwayType, TestType, Report)
+Status, Phase, DamType, SpillwayType, TestType, Report, Role)
 
 # Register your models here.
 admin.site.register(UsState)
@@ -21,3 +21,4 @@ admin.site.register(DamType)
 admin.site.register(SpillwayType)
 admin.site.register(TestType)
 admin.site.register(Report)
+admin.site.register(Role)

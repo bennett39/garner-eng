@@ -13,6 +13,17 @@ class UsState(models.Model):
 
     def __str__(self):
         return self.state
+    
+
+class Role(models.Model):
+    """
+    Create a table of Role groups for people to work under (e.g. Sales,
+    Accounting, Engineering, Admin).
+    """
+    label = models.CharField(max_length=64)
+
+    def __str__(self):
+        return self.label
 
 
 class Person(models.Model):
@@ -24,6 +35,9 @@ class Person(models.Model):
     last = models.CharField(max_length=128)
     email = models.EmailField(max_length=254, null=True, blank=True)
     phone = models.CharField(max_length=16, null=True, blank=True)
+    title = models.CharField(max_length=64, null=True, blank=True)
+    role = models.ForeignKey(Role, on_delete=models.CASCADE, null=True,
+            blank=True, related_name="role_group")
 
     def __str__(self):
         return f"{self.first} {self.last}"
@@ -44,6 +58,8 @@ class Client(models.Model):
             null=True, blank=True, related_name='decision_maker')
     lead = models.ForeignKey(Person, on_delete=models.CASCADE,
             null=True, blank=True, related_name='project_lead')
+    people = models.ManyToManyField(Person, blank=True,
+            related_name='client_people')
     referral = models.CharField('referral source', max_length=254, 
             null=True, blank=True)
 
@@ -63,6 +79,8 @@ class Contractor(models.Model):
     zip_code = models.CharField(max_length=10, null=True, blank=True)
     contact = models.ForeignKey(Person, on_delete=models.CASCADE,
             null=True, blank=True, related_name='contact')
+    people = models.ManyToManyField(Person, blank=True,
+            related_name='contractor_people')
 
     def __str__(self):
         return self.name
