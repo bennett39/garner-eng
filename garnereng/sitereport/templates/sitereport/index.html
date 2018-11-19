@@ -5,28 +5,37 @@
 {% endblock %}
 
 {% block body %}
-    <h1 class="display-4">Home</h1>
-    <table class="table">
-        <thead class="thead-light">
-        <tr>
-            <th scope="column">Job Number</th>
-            <th scope="column">Project Name</th>
-            <th scope="column">Client</th>
-        </tr>
-        </thead>
-        
-    {% for project in projects %}
-        <tbody>
-        <tr>
-            <th scope="row">{{ project.number }}</th>
-            <td>
-                <a href="{% url 'project' project.id %}">{{ project.name }}<a>
-            </td>
-            <td>
-                <a href="{% url 'client' project.client.id %}">{{ project.client }}</a>
-            </td>
-        </tr>
-        </tbody>
-    {% endfor %}
-    </table>
+<h1 class="display-4">Home</h1>
+
+<hr>
+
+<div class="card">
+    <h4 class="card-header">Recent Projects</h4>
+    <div class="card-body">
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th scope="column">Job Number</th>
+                <th scope="column">Project Name</th>
+                <th scope="column">Client</th>
+            </tr>
+            </thead>
+            
+        {% for project in projects %}
+            <tbody>
+            <tr>
+                <th scope="row">{{ project.number }}</th>
+                <td>
+                    <a href="{% url 'project' project.id %}">{{ project.name }}<a>
+                </td>
+                <td>
+                    <a href="{% url 'client' project.client.id %}">{{ project.client }}</a>
+                </td>
+            </tr>
+            </tbody>
+        {% endfor %}
+        </table>
+    </div>
+</div>
+
 {% endblock %}

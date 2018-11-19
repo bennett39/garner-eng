@@ -5,40 +5,45 @@
 {% endblock %}
 
 {% block body %}
-    <h1 class="display-4">{{ project.name }}</h1>
-    <div class="card">
-        <h4 class="card-header">Client</h4>
-        <div class="card-body">
-            <table class="table">
-                <thead class="thead-light">
+<h1 class="display-4">{{ project.name }}</h1>
+
+<hr>
+
+<div class="card">
+    <h4 class="card-header">Client</h4>
+    <div class="card-body">
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th>Client Name</th>
+                <th>Project Lead</th>
+                <th>Lead Email</th>
+                <th>Lead Phone</th>
+                <th>Decision Maker</th>
+                <th>Decider Email</th>
+                <th>Decider Phone</th>
+            </tr>
+            </thead>
+
+            <tbody>
                 <tr>
-                    <th>Client Name</th>
-                    <th>Project Lead</th>
-                    <th>Lead Email</th>
-                    <th>Lead Phone</th>
-                    <th>Decision Maker</th>
-                    <th>Decider Email</th>
-                    <th>Decider Phone</th>
+                    <td><a href="{% url 'client' client.id %}">
+                            {{ client }}</a></td>
+                    <td>{{ project.lead }}</td>
+                    <td>{{ project.lead.email }}</td>
+                    <td>{{ project.lead.phone }}</td>
+                    <td>{{ project.decider }}</td>
+                    <td>{{ project.decider.email }}</td>
+                    <td>{{ project.decider.phone }}</td>
                 </tr>
-                </thead>
+            </tbody>
+        </table>
+    </div>
+</div> 
 
-                <tbody>
-                    <tr>
-                        <td><a href="{% url 'client' client.id %}">
-                                {{ client }}</a></td>
-                        <td>{{ project.lead }}</td>
-                        <td>{{ project.lead.email }}</td>
-                        <td>{{ project.lead.phone }}</td>
-                        <td>{{ project.decider }}</td>
-                        <td>{{ project.decider.email }}</td>
-                        <td>{{ project.decider.phone }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div> 
+<hr>
 
-    <div class="card">
+<div class="card">
     <h4 class="card-header">Sites for this project</h4>
     <div class="card-body">
         <table class="table">
@@ -72,6 +77,6 @@
                 {% endif %}
             </tbody>
         </table>
-        </div>
     </div>
+</div>
 {% endblock %}

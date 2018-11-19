@@ -5,28 +5,101 @@
 {% endblock %}
 
 {% block body %}
-    <h1 class="display-4">{{ report.site }}: {{ report }}</h1>
-    <div class="card">
-        <h4 class="card-header">Details</h4>
-        <div class="card-body">
-            <table class="table">
-                <tr>
-                    <th>Project:</th>
-                    <td>{{ report.site.project }}</td>
-                </tr>
-                <tr>
-                    <th>Site:</th>
-                    <td>{{ report.site }}</td>
-                </tr>
-                <tr>
-                    <th>Client:</th>
-                    <td>{{ report.site.client }}</td>
-                </tr>
-                <tr>
-                    <th>Contractor:</th>
-                    <td>{{ report.site.contractor }}</td>
-                </tr>
-            </table>
+<h1 class="display-4">{{ report }}</h1>
+<h4 class="text-muted"><a href="{% url 'project' report.site.project.id %}">
+    {{ report.site.project }}</a> / 
+    <a href="{% url 'site' report.site.id %}">{{ report.site }}</a></h4>
+
+<hr>
+
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <h4 class="card-header">Details</h4>
+            <div class="card-body">
+                <table class="table">
+                    <tr>
+                        <th>Job Number</th>
+                        <td>{{ report.site.project.number }}</td>
+                    </tr>
+                    <tr>
+                        <th>Client</th>
+                        <td><a href="{% url 'client' report.site.project.client.id %}">
+                                {{ report.site.project.client }}</a></td>
+                    </tr>
+                    <tr>
+                        <th>Contractor</th>
+                        <td>{{ report.site.project.contractor }}</td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
+
+    <div class="col">
+        <div class="card">
+            <h4 class="card-header">Conditions</h4>
+            <div class="card-body">
+                <table class="table">
+                    <tr>
+                        <th>Temperature</th>
+                        <td>{{ report.temperature }}</td>
+                    </tr>
+                    <tr>
+                        <th>Weather</th>
+                        <td>{{ report.weather }}</td>
+                    </tr>
+                    <tr>
+                        <th>Conditions</th>
+                        <td>{{ report.conditions }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card">
+            <h4 class="card-header">Time/Travel</h4>
+            <div class="card-body">
+                <table class="table">
+                    <tr>
+                        <th>Mileage</th>
+                        <td>{{ report.mileage }}</td>
+                    </tr>
+                    <tr>
+                        <th>Travel Time</th>
+                        <td>{{ report.travel_time }}</td>
+                    </tr>
+                    <tr>
+                        <th>Site Time</th>
+                        <td>{{ report.site_time }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<div class="card">
+    <h4 class="card-header">Summary of Work</h4>
+    <div class="card-body">
+        <table class="table">
+            <tr>
+                <th>Tests</th>
+                <td>
+                    {% for test in report.tests.all %}
+                    <span class="badge badge-primary">{{ test }}</span>
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ report.description }}</td>
+            </tr>
+        </table>
+    </div>
+</div>
 {% endblock %}

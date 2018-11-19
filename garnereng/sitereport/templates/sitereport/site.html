@@ -5,71 +5,76 @@
 {% endblock %}
 
 {% block body %}
-    <h1 class="display-4">{{ site.project }}: {{ site }}</h1>
+<h1 class="display-4">{{ site.project }}: {{ site }}</h1>
 
-        <div class="card">
-            <h4 class="card-header">Details</h4>
-            <div class="card-body">
-                <table class="table">
-                    <thead class="thead-light">
-                        <tr>
-                            <th>Project</th>
-                            <th>Client</th>
-                            <th>Contractor</th>
-                            <th>Location</th>
-                            <th>Started</th>
-                            <th>Ended</th>
-                        </tr>
-                    </thead>
+<hr>
 
-                    <tbody>
-                        <tr>
-                            <td><a href="{% url 'project' site.project.id %}">
-                                {{ site.project }}</a></td>
-                            <td><a href="{% url 'client' site.project.client.id %}">
-                                {{ site.project.client }}</a></td>
-                            <td>{{ site.project.contractor }}</td>
-                            <td>{{ site.street }}, {{ site.city }},
-                                {{ site.state }}</td>
-                            <td>{{ site.date_start }}</td>
-                            <td>{{ site.date_end }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+<div class="card">
+    <h4 class="card-header">Details</h4>
+    <div class="card-body">
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th>Project</th>
+                    <th>Client</th>
+                    <th>Contractor</th>
+                    <th>Location</th>
+                    <th>Started</th>
+                    <th>Ended</th>
+                </tr>
+            </thead>
 
-        <div class="card">
-            <h4 class="card-header">Reports</h4>
-            <div class="card-body">
-                <table class="table">
-                    <thead class="thead-light">
-                        <tr>
-                            <th>Date</th>
-                            <th>Weather</th>
-                            <th>Conditions</th>
-                            <th>Tests Performed</th>
-                        </tr>
-                    </thead>
-                    
-                    <tbody>
-                        {% for report in reports %}
-                        <tr>
-                            <td>{{ report.date }}</td>
-                            <td><span class="badge badge-light">
-                                    {{ report.weather }}</span></td>
-                            <td><span class="badge badge-light">
-                                    {{ report.conditions }}</span></td>
-                            <td>
-                                {% for test in report.tests.all %}
-                                <span class="badge badge-primary">{{ test }}
-                                    </span> 
-                                {% endfor %}
-                            </td>
-                        </tr>
+            <tbody>
+                <tr>
+                    <td><a href="{% url 'project' site.project.id %}">
+                        {{ site.project }}</a></td>
+                    <td><a href="{% url 'client' site.project.client.id %}">
+                        {{ site.project.client }}</a></td>
+                    <td>{{ site.project.contractor }}</td>
+                    <td>{{ site.street }}, {{ site.city }},
+                        {{ site.state }}</td>
+                    <td>{{ site.date_start }}</td>
+                    <td>{{ site.date_end }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<hr>
+
+<div class="card">
+    <h4 class="card-header">Reports</h4>
+    <div class="card-body">
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th>Date</th>
+                    <th>Weather</th>
+                    <th>Conditions</th>
+                    <th>Tests Performed</th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                {% for report in reports %}
+                <tr>
+                    <td><a href="{% url 'report' report.id%}">
+                            {{ report.date }}</a></td>
+                    <td><span class="badge badge-light">
+                            {{ report.weather }}</span></td>
+                    <td><span class="badge badge-light">
+                            {{ report.conditions }}</span></td>
+                    <td>
+                        {% for test in report.tests.all %}
+                        <span class="badge badge-primary">{{ test }}
+                            </span> 
                         {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}
