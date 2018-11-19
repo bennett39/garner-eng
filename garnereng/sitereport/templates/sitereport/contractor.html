@@ -1,0 +1,97 @@
+{% extends 'sitereport/base.html' %}
+
+{% block title %}
+    Contractor: {{ contractor.name }}
+{% endblock %}
+
+{% block body %}
+<h1 class="display-4">{{ contractor.name }}</h1>
+
+<hr>
+
+<div class="card">
+    <h4 class="card-header">Projects</h4>
+    <div class="card-body">
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th>Number</th>
+                <th>Name</th>
+                <th>Phase</th>
+                <th>Status</th>
+                <th>Project Lead</th>
+                <th>Decision Maker</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        {% if projects %}
+            {% for project in projects %}
+            <tr>
+                <th>{{ project.number }}</th>
+                <td><a href="{% url 'project' project.id%}">
+                        {{ project.name }}</a></td>
+                <td>{{ project.phase }}</td>
+                <td>{{ project.status }}</td>
+                <td>{{ project.lead }}</td>
+                <td>{{ project.decider }}</td>
+            </tr>
+            {% endfor %}
+        {% else %}
+        <tr>
+            <th></th>
+            <td>No projects yet.</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        {% endif %}
+        </tbody>
+    </table>
+    </div>
+</div>
+
+<hr>
+
+<div class="card">
+    <h4 class="card-header">People</h2>
+    <div class="card-body">
+    <table class="table">
+        <thead class="thead-light">
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Title</th>
+            <th>Role</th>
+        </thead>
+
+        <tbody>
+            {% for person in people %}
+            <tr>
+                <td>{{ person.first }}</td>
+                <td>{{ person.last }}</td>
+                <td><a href="mailto:{{ person.email }}">
+                    {{ person.email }}</a></td>
+                <td>{{ person.phone }}</td>
+                <td>{{ person.title }}</td>
+                <td>{{ person.role }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+</div>
+
+<hr>
+
+<div class="card">
+    <h4 class="card-header">Location</h4>
+    <div class="card-body">
+        {{ contractor.address }}<br />
+        {{ contractor.city }}, {{ contractor.state }}<br />
+        {{ contractor.zip_code }}<br/>
+    </div>
+</div>
+{% endblock %}

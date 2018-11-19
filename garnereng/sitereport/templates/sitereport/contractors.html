@@ -1,0 +1,23 @@
+{% extends "sitereport/base.html" %}
+
+{% block title %}
+    Contractor Overview
+{% endblock %}
+
+{% block body %}
+<h1>Contractor</h1>
+
+<hr>
+
+<div class="card">
+    <h4 class="card-header">Alphabetical</h4>
+    <div class="card-body">
+        <ul>
+            {% for contractor in contractors %}
+            <li><a href="{% url 'contractor' contractor.id %}">
+                    {{ contractor }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

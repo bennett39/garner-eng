@@ -174,7 +174,7 @@ class Project(models.Model):
     budget = models.FloatField(null=True, blank=True)
     billed = models.FloatField(null=True, blank=True)
     contractor = models.ForeignKey(Contractor, on_delete=models.CASCADE,
-            blank=True, null=True, related_name='contractor')
+            blank=True, null=True, related_name='contractor_projects')
     construction_cost = models.FloatField(null=True, blank=True)
     phase = models.ForeignKey(Phase, on_delete=models.CASCADE, 
             blank=True, null=True, related_name='phase')

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
 
-from .models import Project, Client, Site, Report
+from .models import Project, Client, Site, Report, Contractor
 
 # Create your views here.
 def index(request):
@@ -44,6 +44,35 @@ def clients(request):
     }
 
     return render(request, "sitereport/clients.html", context)
+
+
+def contractor(request, contractor_id):
+    """
+    Display contractor that matches the passed in contractor_id
+    """
+    try:
+        contractor = Contractor.objects.get(pk=contractor_id)
+    except ContractorNotFound:
+        raise Http404("Contractor not found.")
+
+    context = {
+            'contractor': contractor,
+            'projects': contractor.contractor_projects.all(),
+            'people': contractor.people.all()
+    }
+
+    return render(request, "sitereport/contractor.html", context)
+
+
+def contractors(request):
+    """
+    Display a list of all contractors
+    """
+    context = {
+            'contractors': Contractor.objects.all().order_by('name')
+    }
+
+    return render(request, "sitereport/contractors.html", context)
 
 
 def project(request, project_id):
