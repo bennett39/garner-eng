@@ -1,9 +1,11 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
 
 from .models import Project, Client, Site, Report, Contractor
 
 # Create your views here.
+@login_required
 def index(request):
     """
     Lists Projects alongside their respective Clients
@@ -15,6 +17,7 @@ def index(request):
     return render(request, "sitereport/index.html", context)
 
 
+@login_required
 def client(request, client_id):
     """
     Displays Client and Project information based on a passed-in 
@@ -36,7 +39,7 @@ def client(request, client_id):
 
     return render(request, "sitereport/client.html", context) 
 
-
+@login_required
 def clients(request):
     """
     Displays all clients.
@@ -48,6 +51,7 @@ def clients(request):
     return render(request, "sitereport/clients.html", context)
 
 
+@login_required
 def contractor(request, contractor_id):
     """
     Display contractor that matches the passed in contractor_id
@@ -67,6 +71,7 @@ def contractor(request, contractor_id):
     return render(request, "sitereport/contractor.html", context)
 
 
+@login_required
 def contractors(request):
     """
     Display a list of all contractors
@@ -78,6 +83,7 @@ def contractors(request):
     return render(request, "sitereport/contractors.html", context)
 
 
+@login_required
 def project(request, project_id):
     """
     Displays Project information based on a passed-in project_id
@@ -96,6 +102,7 @@ def project(request, project_id):
     return render(request, "sitereport/project.html", context) 
 
 
+@login_required
 def projects(request):
     """
     List all projects alphabetically.
@@ -107,6 +114,7 @@ def projects(request):
     return render(request, "sitereport/projects.html", context)
 
 
+@login_required
 def report(request, report_id):
     """
     Lookup a report via the report_id and display it
@@ -123,6 +131,7 @@ def report(request, report_id):
     return render(request, "sitereport/report.html", context)
 
 
+@login_required
 def site(request, site_id):
     try:
         site = Site.objects.get(pk=site_id)
