@@ -15,9 +15,11 @@
         <table class="table">
             <thead class="thead-light">
             <tr>
-                <th scope="column">Job Number</th>
-                <th scope="column">Project Name</th>
-                <th scope="column">Client</th>
+                <th>Job Number</th>
+                <th>Project Name</th>
+                <th>Client</th>
+                <th>Phase</th>
+                <th>Status</th>
             </tr>
             </thead>
             
@@ -31,6 +33,8 @@
                 <td>
                     <a href="{% url 'client' project.client.id %}">{{ project.client }}</a>
                 </td>
+                <td>{{ project.phase }}</td>
+                <td>{{ project.status }}</td>
             </tr>
             </tbody>
         {% endfor %}

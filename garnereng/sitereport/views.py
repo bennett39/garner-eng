@@ -9,9 +9,11 @@ def index(request):
     Lists Projects alongside their respective Clients
     """
     context = {
-        'projects': Project.objects.all()
+        'projects': Project.objects.order_by('status', '-phase')
     }
+
     return render(request, "sitereport/index.html", context)
+
 
 def client(request, client_id):
     """
@@ -28,8 +30,8 @@ def client(request, client_id):
 
     context = {
             'client' : client,
-            'projects': client.projects.all(),
-            'people': client.people.all()
+            'projects': client.projects.order_by('status'),
+            'people': client.people.order_by('role')
     }
 
     return render(request, "sitereport/client.html", context) 
@@ -40,7 +42,7 @@ def clients(request):
     Displays all clients.
     """
     context = {
-            'clients': Client.objects.all().order_by('name')
+            'clients': Client.objects.order_by('name')
     }
 
     return render(request, "sitereport/clients.html", context)
@@ -57,8 +59,9 @@ def contractor(request, contractor_id):
 
     context = {
             'contractor': contractor,
-            'projects': contractor.contractor_projects.all(),
-            'people': contractor.people.all()
+            'projects':
+            contractor.contractor_projects.order_by('status'),
+            'people': contractor.people.order_by('role')
     }
 
     return render(request, "sitereport/contractor.html", context)
@@ -69,7 +72,7 @@ def contractors(request):
     Display a list of all contractors
     """
     context = {
-            'contractors': Contractor.objects.all().order_by('name')
+            'contractors': Contractor.objects.order_by('name')
     }
 
     return render(request, "sitereport/contractors.html", context)
@@ -80,17 +83,14 @@ def project(request, project_id):
     Displays Project information based on a passed-in project_id
     """
     try:
-        # Lookup Project via primary key (pk). More information:
-        # https://docs.djangoproject.com/en/dev/ref/models/instances/#the-pk-property
         project = Project.objects.get(pk=project_id)
     except Project.DoesNotExist:
-        # Error checking for project successfully retrieved
         raise Http404("Project does not exist.")
 
     context = {
             'project': project,
             'client': project.client,
-            'sites': project.sites.all()
+            'sites': project.sites.order_by('-date_start')
     }
 
     return render(request, "sitereport/project.html", context) 
@@ -98,10 +98,10 @@ def project(request, project_id):
 
 def projects(request):
     """
-    List all projects.
+    List all projects alphabetically.
     """
     context = {
-        'projects': Project.objects.all().order_by('name')
+        'projects': Project.objects.order_by('name')
     }
 
     return render(request, "sitereport/projects.html", context)
@@ -125,16 +125,13 @@ def report(request, report_id):
 
 def site(request, site_id):
     try:
-        # Lookup Site via primary key (pk). More information:
-        # https://docs.djangoproject.com/en/dev/ref/models/instances/#the-pk-property
         site = Site.objects.get(pk=site_id)
     except Site.DoesNotExist:
-        #  Error checking if site exists
         raise Http404("Site does not exist.")
 
     context = {
             'site': site,
-            'reports': site.site_reports.all()
+            'reports': site.site_reports.order_by('date')
     }
 
     return render(request, "sitereport/site.html", context)
