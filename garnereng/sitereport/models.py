@@ -171,6 +171,7 @@ class Project(models.Model):
     lead = models.ForeignKey(Person, on_delete=models.CASCADE,
             null=True, blank=True, related_name='project_lead')
     started = models.DateField(null=True, blank=True)
+    ended = models.DateField(null=True, blank=True)
     budget = models.FloatField(null=True, blank=True)
     billed = models.FloatField(null=True, blank=True)
     contractor = models.ForeignKey(Contractor, on_delete=models.CASCADE,
@@ -180,11 +181,12 @@ class Project(models.Model):
             blank=True, null=True, related_name='phase')
     status = models.ForeignKey(Status, on_delete=models.CASCADE,
             blank=True, null=True, related_name='status')
+    description = models.TextField(blank=True, null=True)
     is_dam = models.BooleanField('is it a dam?', null=True)
     dam_type = models.ForeignKey(DamType, on_delete=models.CASCADE, 
             blank=True, null=True, related_name='dam_type')
     height = models.FloatField(null=True, blank=True)
-    width = models.FloatField(null=True, blank=True)
+    length = models.FloatField(null=True, blank=True)
     watershed = models.FloatField(null=True, blank=True)
     spillway_type = models.ForeignKey(SpillwayType, 
             on_delete=models.CASCADE, blank=True, null=True, 

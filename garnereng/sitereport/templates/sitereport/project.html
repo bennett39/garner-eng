@@ -9,37 +9,169 @@
 
 <hr>
 
+<div class="row">
+    <div class="col">    
+        <div class="card">
+            <h4 class="card-header">Details</h4>
+            <div class="card-body">
+                <table class="table">
+                   <tr>
+                        <th>Job Number</th>
+                        <td>{{ project.number }}</td>
+                    </tr>  
+                    <tr>
+                        <th>Client Name</th>
+                        <td><a href="{% url 'client' client.id %}">
+                            {{ client }}</a></td>
+                    </tr>
+                    <tr>
+                        <th>Contractor</th>
+                        <td><a 
+                            href="{% url 'contractor' project.contractor.id %}">
+                            {{ project.contractor }}</a></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-8">
+        <div class="card">
+            <h4 class="card-header">Status</h4>
+            <div class="card-body">
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Started</th>
+                            <th>Completion</th>
+                            <th>Phase</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ project.started }}</td>
+                            <td>{{ project.ended }}</td>
+                            <td>{{ project.phase }}</td>
+                            <td>{{ project.status }}</td>
+                    </tbody>
+                </table>
+                <table class="table">
+                    <tr>
+                        <th>Project Description</th>
+                        <td>{{ project.description }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<div class="row">
+    <div class="col">    
+        <div class="card">
+            <h4 class="card-header">Budget</h4>
+            <div class="card-body">
+                <table class="table">
+                   <tr>
+                        <th>Budget</th>
+                        <td>{{ project.budget }}</td>
+                    </tr>  
+                    <tr>
+                        <th>Billed To-Date</th>
+                        <td>{{ project.billed }}</td>
+                    </tr>
+                    <tr>
+                        <th>Construction Costs</th>
+                        <td>{{ project.construction_cost }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card">
+            <h4 class="card-header">Client PM</h4>
+            <div class="card-body">
+                <table class="table">
+                    <tr>
+                        <th>Project Lead</th>
+                            <td>{{ project.lead }}</td>
+                    </tr>
+                    <tr>
+                        <th>Lead Email</th>
+                            <td>{{ project.lead.email }}</td>
+                    </tr>
+                    <tr>
+                        <th>Lead Phone</th>
+                            <td>{{ project.lead.phone }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card">
+            <h4 class="card-header">Decision Maker</h4>
+            <div class="card-body">
+                <table class="table">
+                    <tr>
+                        <th>Decision Maker</th>
+                            <td>{{ project.decider }}</td>
+                    </tr>
+                    <tr>
+                        <th>Decider Email</th>
+                            <td>{{ project.decider.email }}</td>
+                    </tr>
+                    <tr>
+                        <th>Decider Phone</th>
+                            <td>{{ project.decider.phone }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div> 
+    </div>
+</div>
+
+{% if project.is_dam %}
+
+<hr>
+
 <div class="card">
-    <h4 class="card-header">Client</h4>
+    <h4 class="card-header">Dam Details</h4>
     <div class="card-body">
         <table class="table">
             <thead class="thead-light">
-            <tr>
-                <th>Client Name</th>
-                <th>Project Lead</th>
-                <th>Lead Email</th>
-                <th>Lead Phone</th>
-                <th>Decision Maker</th>
-                <th>Decider Email</th>
-                <th>Decider Phone</th>
-            </tr>
+                <tr>
+                    <th>Dam Type</th>
+                    <th>Spillway Type</th>
+                    <th>Height</th>
+                    <th>Length</th>
+                    <th>Watershed</th>
+                    <th>Total Volume</th>
+                    <th>Flood Volume</th>
+                </tr>
             </thead>
-
             <tbody>
                 <tr>
-                    <td><a href="{% url 'client' client.id %}">
-                            {{ client }}</a></td>
-                    <td>{{ project.lead }}</td>
-                    <td>{{ project.lead.email }}</td>
-                    <td>{{ project.lead.phone }}</td>
-                    <td>{{ project.decider }}</td>
-                    <td>{{ project.decider.email }}</td>
-                    <td>{{ project.decider.phone }}</td>
-                </tr>
+                    <td>{{ project.dam_type }}</td>
+                    <td>{{ project.spillway_type }}</td>
+                    <td>{{ project.height }}</td>
+                    <td>{{ project.length }}</td>
+                    <td>{{ project.watershed }}</td>
+                    <td>{{ project.total_volume }}</td>
+                    <td>{{ project.flood_volume }}</td>
             </tbody>
         </table>
+        {% if project.details %}
+        <h6>Additional Info</h6>
+        <p>{{ project.details }}</p>
+        {% endif %}
     </div>
-</div> 
+</div>
+
+{% endif %}
 
 <hr>
 
@@ -55,7 +187,6 @@
                     <th>Ended</th>
                 </tr>
             </thead>
-
             <tbody>
                 {% if sites %}
                 {% for site in sites %}
