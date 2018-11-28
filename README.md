@@ -1,6 +1,6 @@
 # garner-eng
 
-![Screenshot of home page](https://wp.me/a9mEb1-36)
+![Screenshot of home page](http://www.garner-eng.com/wp-content/uploads/2018/11/Screenshot-2018-11-27-at-20.31.15.png)
 
 This web app allows an engineering firm to track their projects, clients, and construction sites with a custom-developed dashboard and CRM-like editing.
 
