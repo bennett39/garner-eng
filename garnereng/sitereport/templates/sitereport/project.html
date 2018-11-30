@@ -9,6 +9,10 @@
 
 <hr>
 
+<p class="text-right"><a 
+    href="/admin/sitereport/project/{{ project.id }}">
+    Edit Project</a></p>
+
 <div class="row">
     <div class="col">    
         <div class="card">
@@ -26,9 +30,11 @@
                     </tr>
                     <tr>
                         <th>Contractor</th>
-                        <td><a 
+                        <td>{% if project.contractor %}<a 
                             href="{% url 'contractor' project.contractor.id %}">
-                            {{ project.contractor }}</a></td>
+                            {{ project.contractor }}</a>
+                            {% endif %}
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -210,4 +216,9 @@
         </table>
     </div>
 </div>
+
+<p class="text-right"><a 
+    href="/admin/sitereport/project/{{ project.id }}">
+    Edit Project</a></p>
+
 {% endblock %}
