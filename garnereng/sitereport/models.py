@@ -226,7 +226,7 @@ class Report(models.Model):
     Create a table of daily field Reports affiliated with a given Site 
     (Sites are further affiliated with a given Project).
     """
-    date = models.DateField(null=True, default=None)
+    date = models.DateField()
     site = models.ForeignKey(Site, on_delete=models.CASCADE, 
             related_name='site_reports')
     mileage = models.FloatField(null=True, blank=True)
@@ -243,4 +243,3 @@ class Report(models.Model):
 
     def __str__(self):
         return self.date.strftime("%Y-%m-%d")
-
