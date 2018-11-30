@@ -1,5 +1,8 @@
 garnereng/garnereng/settings.py
 __pycache__/
+htmlcov
+
+.coverage
 
 *.swp
 *.swo
